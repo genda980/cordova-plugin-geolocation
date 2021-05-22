@@ -97,7 +97,14 @@ public class Geolocation extends CordovaPlugin {
     }
 
     private void stopLocation(CallbackContext callbackContext) {
-
+        try {
+            cordova.getContext().stopService(new Intent(cordova.getContext(), LocationService.class));
+            callbackContext.success();
+            return;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        callbackContext.error("Stop error");
     }
 
     private void parseLocation(JSONObject obj, CallbackContext callbackContext) {

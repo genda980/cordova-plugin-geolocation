@@ -59,8 +59,6 @@ public class LocationService extends Service implements AMapLocationListener {
         mLocationClient.setLocationOption(option);
         mLocationClient.setLocationListener(this);
         mLocationClient.startLocation();
-
-        Log.e(TAG, "onStartCommand: 'sadasdasdasdasdasdadasdasdasdasdasd");
     }
 
     @Override
@@ -120,7 +118,6 @@ public class LocationService extends Service implements AMapLocationListener {
         } else {
             float lineDistanceM = LocationUtils.getLineDistanceM(String.valueOf(aMapLocation.getLatitude()), String.valueOf(aMapLocation.getLongitude()), lastLat, lastLong);
             needBack = lineDistanceM > Geolocation.sServiceObj.diffDistance;
-            Log.e(TAG, "handleLocation: '-----> " + lineDistanceM + "  " + needBack);
         }
 
         LocationUtils.setValue(this, "last_long", String.valueOf(aMapLocation.getLongitude()));
