@@ -3,15 +3,29 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
     <name>Geolocation</name>
     <js-module name="Geolocation" src="www/Geolocation.js">
-        <clobbers target="cordova.plugins.Geolocation"/>
+        <clobbers target="Geolocation"/>
     </js-module>
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
             <feature name="Geolocation">
-                <param name="android-package" value="cordova-plugin-geolocation.Geolocation"/>
+                <param name="android-package" value="org.apache.cordova.geolocation.Geolocation"/>
             </feature>
         </config-file>
-        <config-file parent="/*" target="AndroidManifest.xml"></config-file>
-        <source-file src="src/android/Geolocation.java" target-dir="src/cordova-plugin-geolocation/Geolocation"/>
+
+        <config-file parent="/manifest/application" target="AndroidManifest.xml">
+            <service android:name="org.apache.cordova.geolocation.LocationService" />
+            <service android:name="com.amap.api.location.APSService" />
+            <meta-data
+                    android:name="com.amap.api.v2.apikey"
+                    android:value="4adb2746e49f548cf283a404dcfc13a5" />
+        </config-file>
+
+        <framework src="com.amap.api:location:4.4.0"/>
+
+        <source-file src="src/android/Geolocation.java" target-dir="src/org/apache/cordova/geolocation"/>
+        <source-file src="src/android/LocationManger.java" target-dir="src/org/apache/cordova/geolocation"/>
+        <source-file src="src/android/LocationObj.java" target-dir="src/org/apache/cordova/geolocation"/>
+        <source-file src="src/android/LocationService.java" target-dir="src/org/apache/cordova/geolocation"/>
+        <source-file src="src/android/LocationUtils.java" target-dir="src/org/apache/cordova/geolocation"/>
     </platform>
 </plugin>
